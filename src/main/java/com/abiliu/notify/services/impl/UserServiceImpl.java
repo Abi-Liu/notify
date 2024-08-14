@@ -1,6 +1,8 @@
 package com.abiliu.notify.services.impl;
 
 import com.abiliu.notify.entities.User;
+import com.abiliu.notify.exceptions.BadRequestException;
+import com.abiliu.notify.exceptions.NotFoundException;
 import com.abiliu.notify.mappers.UserMapper;
 import com.abiliu.notify.models.CredentialsModel;
 import com.abiliu.notify.models.UserResponseModel;
@@ -21,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private User getUserById(int id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isEmpty()) {
-            // throw new 404 error
+            throw new NotFoundException("User not found");
         }
         return optionalUser.get();
     }
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseModel createUser(CredentialsModel credentials) {
         Optional<User> user = userRepository.findByEmail(credentials.getEmail());
         if (user.isPresent()) {
-            // throw new 400 error user already exists
+            throw new BadRequestException("User with that email already exists");
         }
         User newUser = userMapper.credentialsModelToUser(credentials);
         return userMapper.userToResponseModel(userRepository.saveAndFlush(newUser));
