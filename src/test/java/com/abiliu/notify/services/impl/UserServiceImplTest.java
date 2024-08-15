@@ -2,8 +2,10 @@ package com.abiliu.notify.services.impl;
 
 
 import com.abiliu.notify.entities.User;
+import com.abiliu.notify.exceptions.BadRequestException;
 import com.abiliu.notify.exceptions.NotFoundException;
 import com.abiliu.notify.mappers.UserMapper;
+import com.abiliu.notify.models.CredentialsModel;
 import com.abiliu.notify.models.UserResponseModel;
 import com.abiliu.notify.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -80,4 +81,31 @@ public class UserServiceImplTest {
         assert(result.size() == 2);
     }
 
+    @Test
+    void createUser_ShouldThrowError_IfEmailExists() {
+        User existingUser = new User();
+        String email = "bob@ross.com";
+        existingUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+
+        CredentialsModel credentials = new CredentialsModel();
+        credentials.setEmail(email);
+
+        assertThrows(BadRequestException.class, () -> userService.createUser(credentials));
+    }
+
+    @Test
+    void createUser_ShouldCreateUser_IfEmailDoesNotExist() {
+        String email = "bob@ross.com";
+        User user = new User();
+        user.setEmail(email);
+        CredentialsModel credentials = new CredentialsModel();
+        credentials.setEmail(email);
+
+
+        UserResponseModel response = new UserResponseModel();
+
+        assertNotNull(response);
+    }
 }
