@@ -4,7 +4,7 @@ import com.abiliu.notify.entities.User;
 import com.abiliu.notify.exceptions.BadRequestException;
 import com.abiliu.notify.exceptions.NotFoundException;
 import com.abiliu.notify.mappers.UserMapper;
-import com.abiliu.notify.models.CredentialsModel;
+import com.abiliu.notify.models.UserRequestModel;
 import com.abiliu.notify.models.UserResponseModel;
 import com.abiliu.notify.repositories.UserRepository;
 import com.abiliu.notify.services.UserService;
@@ -40,14 +40,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseModel createUser(CredentialsModel credentials) {
-        Optional<User> user = userRepository.findByEmail(credentials.getEmail());
+    public UserResponseModel createUser(UserRequestModel userRequestModel) {
+        Optional<User> user = userRepository.findByEmail(userRequestModel.getCredentials().getEmail());
         if (user.isPresent()) {
             throw new BadRequestException("User with that email already exists");
         }
-        User newUser = userMapper.credentialsModelToUser(credentials);
+        User newUser = userMapper.UserRequestModelToUser(userRequestModel);
         return userMapper.userToResponseModel(userRepository.saveAndFlush(newUser));
     }
-
-
 }

@@ -1,6 +1,6 @@
 package com.abiliu.notify.controllers;
 
-import com.abiliu.notify.models.CredentialsModel;
+import com.abiliu.notify.models.UserRequestModel;
 import com.abiliu.notify.models.UserResponseModel;
 import com.abiliu.notify.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResponseModel createUser(@RequestBody CredentialsModel credentials) {
-        return userService.createUser(credentials);
+    public UserResponseModel createUser(@RequestBody UserRequestModel userRequestModel) {
+        return userService.createUser(userRequestModel);
     }
 }

@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CredentialsModel {
-    private String email;
-    private String password;
+public class ProfileModel {
+    private String firstName;
+    private String lastName;
 }

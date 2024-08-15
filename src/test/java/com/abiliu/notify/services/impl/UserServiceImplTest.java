@@ -6,6 +6,8 @@ import com.abiliu.notify.exceptions.BadRequestException;
 import com.abiliu.notify.exceptions.NotFoundException;
 import com.abiliu.notify.mappers.UserMapper;
 import com.abiliu.notify.models.CredentialsModel;
+import com.abiliu.notify.models.ProfileModel;
+import com.abiliu.notify.models.UserRequestModel;
 import com.abiliu.notify.models.UserResponseModel;
 import com.abiliu.notify.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -63,8 +65,9 @@ public class UserServiceImplTest {
         when(userMapper.usersToResponseModels(users)).thenReturn(usersResponse);
 
         List<UserResponseModel> result = userService.findAllUsers();
-        assert(result.size() == 0);
+        assert (result.size() == 0);
     }
+
     @Test
     void findAllUsers_ShouldReturnAListOfUsers() {
         User user1 = new User();
@@ -78,7 +81,7 @@ public class UserServiceImplTest {
         when(userMapper.usersToResponseModels(users)).thenReturn(usersResponse);
 
         List<UserResponseModel> result = userService.findAllUsers();
-        assert(result.size() == 2);
+        assert (result.size() == 2);
     }
 
     @Test
@@ -90,9 +93,11 @@ public class UserServiceImplTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
 
         CredentialsModel credentials = new CredentialsModel();
+        ProfileModel profile = new ProfileModel();
+        UserRequestModel request = new UserRequestModel(credentials, profile);
         credentials.setEmail(email);
 
-        assertThrows(BadRequestException.class, () -> userService.createUser(credentials));
+        assertThrows(BadRequestException.class, () -> userService.createUser(request));
     }
 
     @Test
