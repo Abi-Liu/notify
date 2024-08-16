@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +34,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "feed_id")
     )
     @ToString.Exclude
-    private List<Feed> followedFeeds;
+    private List<Feed> followedFeeds = new ArrayList<>();
 
     @Column(name = "api_key", nullable = false, unique = true)
     private String apiKey;

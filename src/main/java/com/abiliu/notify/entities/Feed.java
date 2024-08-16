@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,7 @@ public class Feed {
 
     @ManyToMany(mappedBy = "followedFeeds")
     @ToString.Exclude
-    private List<User> followers;
+    private List<User> followers = new ArrayList<>();
 
 
     @PrePersist

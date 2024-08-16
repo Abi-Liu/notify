@@ -9,5 +9,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FeedRequestModel {
     private String url;
-    private int userId;
 }
