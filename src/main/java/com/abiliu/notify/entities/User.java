@@ -1,7 +1,6 @@
 package com.abiliu.notify.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,15 +15,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Embedded
+    private Credentials credentials;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    private String email;
-
-    private String password;
+    @Embedded
+    private Profile profile;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
