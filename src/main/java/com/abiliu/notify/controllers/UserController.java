@@ -4,6 +4,7 @@ import com.abiliu.notify.models.UserRequestModel;
 import com.abiliu.notify.models.UserResponseModel;
 import com.abiliu.notify.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public UserResponseModel createUser(@RequestBody UserRequestModel userRequestModel) {
         System.out.println(userRequestModel);
         return userService.createUser(userRequestModel);

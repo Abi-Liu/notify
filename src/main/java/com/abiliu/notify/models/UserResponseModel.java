@@ -13,6 +13,7 @@ public class UserResponseModel {
     private int id;
     private ProfileModel profile;
     private CredentialsModel credentials;
+    private String apiKey;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }
