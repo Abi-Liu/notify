@@ -3,8 +3,10 @@ package com.abiliu.notify.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +22,15 @@ public class User {
 
     @Embedded
     private Profile profile;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_feeds",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "feed_id")
+    )
+    @ToString.Exclude
+    private List<Feed> followedFeeds;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
