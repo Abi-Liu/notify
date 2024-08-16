@@ -11,10 +11,8 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class UserResponseModel {
     private int id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+    private ProfileModel profile;
+    private CredentialsModel credentials;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }
