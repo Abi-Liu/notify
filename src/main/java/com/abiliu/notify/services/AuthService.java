@@ -6,7 +6,5 @@ import com.abiliu.notify.models.UserResponseModel;
 public interface AuthService {
     String hashPassword(String password);
 
-    boolean validatePassword(String password);
-
     UserResponseModel login(CredentialsModel credentials);
 }

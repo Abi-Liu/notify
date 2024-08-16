@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseModel createUser(UserRequestModel userRequestModel) {
-        Optional<User> user = userRepository.findByEmail(userRequestModel.getCredentials().getEmail());
+        Optional<User> user = userRepository.findByCredentialsEmail(userRequestModel.getCredentials().getEmail());
         if (user.isPresent()) {
             throw new BadRequestException("User with that email already exists");
         }

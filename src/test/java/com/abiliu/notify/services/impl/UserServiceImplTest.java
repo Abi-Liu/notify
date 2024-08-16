@@ -1,6 +1,7 @@
 package com.abiliu.notify.services.impl;
 
 
+import com.abiliu.notify.entities.Credentials;
 import com.abiliu.notify.entities.User;
 import com.abiliu.notify.exceptions.BadRequestException;
 import com.abiliu.notify.exceptions.NotFoundException;
@@ -88,9 +89,10 @@ public class UserServiceImplTest {
     void createUser_ShouldThrowError_IfEmailExists() {
         User existingUser = new User();
         String email = "bob@ross.com";
-        existingUser.setEmail(email);
+        Credentials creds = new Credentials(email, "");
+        existingUser.setCredentials(creds);
 
-        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+        when(userRepository.findByCredentialsEmail(email)).thenReturn(Optional.of(existingUser));
 
         CredentialsModel credentials = new CredentialsModel();
         ProfileModel profile = new ProfileModel();
@@ -103,8 +105,10 @@ public class UserServiceImplTest {
     @Test
     void createUser_ShouldCreateUser_IfEmailDoesNotExist() {
         String email = "bob@ross.com";
+        String password = "BOB";
+        Credentials creds = new Credentials(email, password);
         User user = new User();
-        user.setEmail(email);
+        user.setCredentials(creds);
         CredentialsModel credentials = new CredentialsModel();
         credentials.setEmail(email);
 
