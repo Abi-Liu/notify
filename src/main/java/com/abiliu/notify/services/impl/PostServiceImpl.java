@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
-    private final Executor taskExecutor;
+    private final ExecutorService taskExecutor;
     private final FeedRepository feedRepository;
 
     public void startScraping(int numPosts, Duration duration) throws InterruptedException {
